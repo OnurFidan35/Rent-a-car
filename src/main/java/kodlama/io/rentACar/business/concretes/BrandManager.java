@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import kodlama.io.rentACar.core.utilities.mappers.ModelMapperService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,15 +14,13 @@ import kodlama.io.rentACar.business.requests.CreateBrandRequest;
 import kodlama.io.rentACar.business.responses.GetAllBrandsResponse;
 import kodlama.io.rentACar.dataAcces.abstarcts.BrandRepository;
 import kodlama.io.rentACar.entities.concretes.Brand;
+@AllArgsConstructor
 @Service //Bu bir business nesnesidir
 public class BrandManager implements BrandService{
 
 	private BrandRepository brandRepository;
 	private ModelMapperService modelMapperService;
-	@Autowired
-	public BrandManager(BrandRepository brandRepository) {
-		this.brandRepository = brandRepository;
-	}
+
 
 
 	@Override
