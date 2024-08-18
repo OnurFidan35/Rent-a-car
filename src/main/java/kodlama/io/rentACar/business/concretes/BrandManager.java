@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import kodlama.io.rentACar.business.requests.UpdateBrandRequest;
+import kodlama.io.rentACar.business.responses.GetByIdBrandResponse;
 import kodlama.io.rentACar.core.utilities.mappers.ModelMapperService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +55,24 @@ public class BrandManager implements BrandService{
 		brandRepository.save(brand);
 		
 		
+	}
+
+	@Override
+	public void update(UpdateBrandRequest brandRequest) {
+	Brand brand = modelMapperService.forRequest().map(brandRequest,Brand.class);
+	brandRepository.save(brand); //Id de aldığımız için bu işlem insert değil update yapar
+	}
+
+	@Override
+	public void delete(int id) {
+	brandRepository.deleteById(id);
+	}
+
+	@Override
+	public GetByIdBrandResponse getById(int id) {
+		Brand brand = brandRepository.findById(id).orElseThrow(); //Bulamazsa vs hata fırlat
+		GetByIdBrandResponse response=modelMapperService.forResponse().map(brand,GetByIdBrandResponse.class);
+		return response;
 	}
 
 }
