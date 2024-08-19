@@ -8,19 +8,20 @@ import kodlama.io.rentACar.dataAcces.abstarcts.ModelRepository;
 import kodlama.io.rentACar.entities.concretes.Model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 @AllArgsConstructor
-@NoArgsConstructor
 @Data
+@Service
 public class ModelManager implements ModelService {
 
-    ModelRepository modelRepository;
-    ModelMapperService modelMapperService;
+    private ModelRepository modelRepository;
+    private ModelMapperService modelMapperService;
 
     @Override
     public List<GetAllModelsResponse> getAllModelsResponse() {
@@ -38,6 +39,7 @@ public class ModelManager implements ModelService {
     public void add(CreateModelRequest modelRequest) {
 
         Model model = modelMapperService.forRequest().map(modelRequest,Model.class);
+        //Maplemede sorun olabilir, öyle komplex durumlarda manuel maplama yapılır model.setName() vs.
         modelRepository.save(model);
 
     }

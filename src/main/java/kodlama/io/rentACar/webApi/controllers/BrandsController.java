@@ -2,6 +2,7 @@ package kodlama.io.rentACar.webApi.controllers;
 
 import java.util.List;
 
+import jakarta.validation.Valid;
 import kodlama.io.rentACar.business.requests.UpdateBrandRequest;
 import kodlama.io.rentACar.business.responses.GetByIdBrandResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,7 @@ public class BrandsController {
 	
 	@PostMapping()
 	@ResponseStatus(code= HttpStatus.CREATED)
-	public void Add(@RequestBody CreateBrandRequest brandRequest){
+	public void Add(@RequestBody @Valid() CreateBrandRequest brandRequest){
 		
 		brandService.add(brandRequest);
 		
