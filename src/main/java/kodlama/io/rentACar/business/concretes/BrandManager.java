@@ -4,10 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import kodlama.io.rentACar.business.abstracts.ModelService;
 import kodlama.io.rentACar.business.requests.UpdateBrandRequest;
+import kodlama.io.rentACar.business.responses.GetAllBrandModelsResponse;
 import kodlama.io.rentACar.business.responses.GetByIdBrandResponse;
 import kodlama.io.rentACar.business.rules.BrandBusinessRules;
 import kodlama.io.rentACar.core.utilities.mappers.ModelMapperService;
+import kodlama.io.rentACar.dataAcces.abstarcts.ModelRepository;
+import kodlama.io.rentACar.entities.concretes.Model;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +28,7 @@ public class BrandManager implements BrandService{
 	private BrandRepository brandRepository;
 	private ModelMapperService modelMapperService;
 	private BrandBusinessRules brandBusinessRules;
+	private ModelRepository modelRepository;
 
 
 	@Override
@@ -77,6 +82,14 @@ public class BrandManager implements BrandService{
 	public GetByIdBrandResponse getById(int id) {
 		Brand brand = brandRepository.findById(id).orElseThrow(); //Bulamazsa vs hata fırlat
 		GetByIdBrandResponse response=modelMapperService.forResponse().map(brand,GetByIdBrandResponse.class);
+		return response;
+	}
+
+	@Override
+	public List<GetAllBrandModelsResponse> getAllModels(int id) {
+		Brand brand=brandRepository.findById(id).orElseThrow();
+		List<Model> result = brand.getModels();
+		List<GetAllBrandModelsResponse> response=result.stream().map(model -> modelMapperService.forResponse().map(model,GetAllBrandModelsResponse.class)).collect(Collectors.toList());
 		return response;
 	}
 

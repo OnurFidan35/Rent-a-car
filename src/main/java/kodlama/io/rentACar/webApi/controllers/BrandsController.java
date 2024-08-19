@@ -4,6 +4,7 @@ import java.util.List;
 
 import jakarta.validation.Valid;
 import kodlama.io.rentACar.business.requests.UpdateBrandRequest;
+import kodlama.io.rentACar.business.responses.GetAllBrandModelsResponse;
 import kodlama.io.rentACar.business.responses.GetByIdBrandResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -57,6 +58,13 @@ public class BrandsController {
 	public void Delete(@PathVariable  int id){
 
 		brandService.delete(id);
+
+	}
+
+	@GetMapping("/getModels/{id}")
+	public List<GetAllBrandModelsResponse> getModelsById(@PathVariable int id){
+
+		return brandService.getAllModels(id);
 
 	}
 	
