@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import kodlama.io.rentACar.business.abstracts.ModelService;
 import kodlama.io.rentACar.business.requests.CreateModelRequest;
 import kodlama.io.rentACar.business.requests.UpdateModelRequest;
+import kodlama.io.rentACar.business.responses.GetAllModelCarsResponse;
 import kodlama.io.rentACar.business.responses.GetAllModelsResponse;
 import kodlama.io.rentACar.business.responses.GetByIdModelResponse;
 import lombok.AllArgsConstructor;
@@ -43,7 +44,7 @@ public class ModelsController {
     }
 
     @PutMapping()
-    public void update(@RequestBody UpdateModelRequest updateModelRequest){
+    public void update(@RequestBody() UpdateModelRequest updateModelRequest){
 
         modelService.update(updateModelRequest);
 
@@ -53,6 +54,13 @@ public class ModelsController {
     public GetByIdModelResponse getById(@PathVariable int id){
 
         return modelService.getById(id);
+
+    }
+
+    @GetMapping("/cars/{id}")
+    public List<GetAllModelCarsResponse> getAllCarsByModelId(@PathVariable int id){
+
+        return modelService.getAllCarsByModelId(id);
 
     }
 

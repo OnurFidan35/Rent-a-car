@@ -6,6 +6,7 @@ import kodlama.io.rentACar.business.requests.UpdateCarRequest;
 import kodlama.io.rentACar.business.responses.GetAllCarsResponse;
 import kodlama.io.rentACar.business.responses.GetAllModelsResponse;
 import kodlama.io.rentACar.business.responses.GetByIdCarResponse;
+import kodlama.io.rentACar.business.rules.CarBusinessRules;
 import kodlama.io.rentACar.core.utilities.mappers.ModelMapperService;
 import kodlama.io.rentACar.dataAcces.abstarcts.CarRepository;
 import kodlama.io.rentACar.entities.concretes.Car;
@@ -21,7 +22,7 @@ public class CarManager implements CarService {
 
     CarRepository carRepository;
     ModelMapperService modelMapperService;
-
+    CarBusinessRules carBusinessRules;
 
     @Override
     public List<GetAllCarsResponse> getAll() {
@@ -34,14 +35,17 @@ public class CarManager implements CarService {
 
     @Override
     public void add(CreateCarRequest createCarRequest) {
+        carBusinessRules.checkIfCarPlateExists(createCarRequest.getPlate());
         Car car=modelMapperService.forRequest().map(createCarRequest,Car.class);
         carRepository.save(car);
+
     }
 
     @Override
     public void update(UpdateCarRequest updateCarRequest) {
-        Car car=modelMapperService.forResponse().map(updateCarRequest,Car.class);
+        Car car=modelMapperService.forRequest().map(updateCarRequest,Car.class);
         carRepository.save(car);
+
     }
 
     @Override

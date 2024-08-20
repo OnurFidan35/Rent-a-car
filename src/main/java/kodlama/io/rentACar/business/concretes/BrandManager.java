@@ -70,6 +70,7 @@ public class BrandManager implements BrandService{
 	@Override
 	public void update(UpdateBrandRequest brandRequest) {
 	Brand brand = modelMapperService.forRequest().map(brandRequest,Brand.class);
+	brandBusinessRules.checkIfBrandNameExists(brandRequest.getName());
 	brandRepository.save(brand); //Id de aldığımız için bu işlem insert değil update yapar
 	}
 

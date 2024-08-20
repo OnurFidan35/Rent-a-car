@@ -35,14 +35,14 @@ public class CarsController {
 
     @PostMapping()
     @ResponseStatus(code = HttpStatus.CREATED)
-    public void add(@RequestBody CreateCarRequest createCarRequest){
+    public void add(@RequestBody() CreateCarRequest createCarRequest){
 
         carService.add(createCarRequest);
 
     }
 
     @PutMapping()
-    public void update(@RequestBody UpdateCarRequest updateCarRequest){
+    public void update(@RequestBody() UpdateCarRequest updateCarRequest){
 
         carService.update(updateCarRequest);
 
