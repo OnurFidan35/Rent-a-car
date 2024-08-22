@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.HashMap;
+import java.util.NoSuchElementException;
 
 @RestControllerAdvice //Bütün controllerlar alttakı exceptionhandler'a tabi
 @SpringBootApplication
@@ -27,7 +28,7 @@ public class RentACarApplication {
 
 
 
-	//Burayı yapmamızın sebebi son kullanıcıya hata mesajı verirken veri açığı vermemek yani mesjaı kısıtlamak
+	//Burayı yapmamızın sebebi son kullanıcıya hata mesajı verirken veri açığı vermemek yani hata mesajını kısıtlamak
 	@ExceptionHandler //Hata oluşursa buradan geçecek
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST) //Hata yakalanırsa http statulerinden bad request dondurs
 	public ProblemDetails handleBusinessException(BusinessException businessException){ //Business exc alırsa
@@ -54,6 +55,25 @@ public class RentACarApplication {
 		return validationProblemDetails;
 
 	}
+
+	@ExceptionHandler //Hata oluşursa buradan geçecek
+	@ResponseStatus(code = HttpStatus.BAD_REQUEST) //Hata yakalanırsa http statulerinden bad request dondurs
+	public ProblemDetails handleNoSuchElementException(NoSuchElementException noSuchElementException){ //Business exc alırsa
+		//bu method çalışacak
+
+		ProblemDetails problemDetails = new ProblemDetails();
+		problemDetails.setMessage(noSuchElementException.getMessage());
+		return problemDetails;
+
+	}
+
+
+
+
+
+
+
+
 
 	@Bean
 	public ModelMapper getModelMapper() {

@@ -53,14 +53,14 @@ public class ModelManager implements ModelService {
 
     @Override
     public void delete(int id) {
-
+        modelBusinessRules.checkIfModelIdExists(id);
         modelRepository.deleteById(id);
 
     }
 
     @Override
     public void update(UpdateModelRequest updateModelRequest) {
-
+        //unique constraint kullanarak bu methodla var olan bir isimden 2 tane oluşmasını engelleyebilirim.
         Model model = modelMapperService.forRequest().map(updateModelRequest,Model.class);
         modelRepository.save(model);
 

@@ -22,5 +22,15 @@ public class CarBusinessRules {
 
     }
 
+    public void checkIfCarIdExists(int id){
+
+        if (!carRepository.existsById(id)){
+
+            throw new BusinessException("Car already doesn't exist");
+
+        }
+
+    }
+
 
 }

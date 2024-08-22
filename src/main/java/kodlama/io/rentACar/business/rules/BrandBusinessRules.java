@@ -25,4 +25,14 @@ public class BrandBusinessRules {
 
     }
 
+    public void checkIfBrandIdExists(int id){
+
+        if (!brandRepository.existsById(id)){
+
+            throw new BusinessException("Brand already doesn't exist");
+
+        }
+
+    }
+
 }

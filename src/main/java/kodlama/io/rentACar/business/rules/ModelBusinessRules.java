@@ -21,5 +21,15 @@ public class ModelBusinessRules {
 
     }
 
+    public void checkIfModelIdExists(int id){
+
+        if (!modelRepository.existsById(id)){
+
+            throw new BusinessException("Model already doesn't exist");
+
+        }
+
+    }
+
 
 }

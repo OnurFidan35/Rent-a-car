@@ -76,7 +76,8 @@ public class BrandManager implements BrandService{
 
 	@Override
 	public void delete(int id) {
-	brandRepository.deleteById(id);
+		brandBusinessRules.checkIfBrandIdExists(id);
+		brandRepository.deleteById(id);
 	}
 
 	@Override

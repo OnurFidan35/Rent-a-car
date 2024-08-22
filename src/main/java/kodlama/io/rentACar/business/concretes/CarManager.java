@@ -43,6 +43,7 @@ public class CarManager implements CarService {
 
     @Override
     public void update(UpdateCarRequest updateCarRequest) {
+        //unique constraint kullanarak bu methodla var olan bir isimden 2 tane oluşmasını engelleyebilirim.
         Car car=modelMapperService.forRequest().map(updateCarRequest,Car.class);
         carRepository.save(car);
 
@@ -50,6 +51,8 @@ public class CarManager implements CarService {
 
     @Override
     public void delete(int id) {
+
+        carBusinessRules.checkIfCarIdExists(id);
         carRepository.deleteById(id);
     }
 
